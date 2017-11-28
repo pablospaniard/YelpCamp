@@ -16,9 +16,11 @@ var commentRoutes = require('./routes/comments'),
     indexRoutes = require('./routes/index');
 
 mongoose.Promise = global.Promise;
+//LOCAL DB
 // var promise = mongoose.connect('mongodb://localhost/yelp_camp', {
 //     useMongoClient: true,
 // });
+//PRODUCTION DB
 var promise = mongoose.connect('mongodb://pablo:12345@ds123146.mlab.com:23146/yelpcamp_pavel', {
     useMongoClient: true,
 });
@@ -53,6 +55,7 @@ app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/campgrounds', campgroundRoutes);
 
 //LOCALHOST
-app.listen(3000, function() {
-    console.log('Server has started!');
+var port = process.env.PORT || 3000;
+app.listen(port, process.env.IP, function() {
+    console.log('Server has started on port ' + port );
 });
