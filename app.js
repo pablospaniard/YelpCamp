@@ -15,15 +15,17 @@ var commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
     indexRoutes = require('./routes/index');
 
+console.log(process.env.DATABASEURL);
+
 mongoose.Promise = global.Promise;
 //LOCAL DB
-// var promise = mongoose.connect('mongodb://localhost/yelp_camp', {
-//     useMongoClient: true,
-// });
-//PRODUCTION DB
-var promise = mongoose.connect('mongodb://pablo:12345@ds123146.mlab.com:23146/yelpcamp_pavel', {
+var promise = mongoose.connect(process.env.DATABASEURL, {
     useMongoClient: true,
 });
+//PRODUCTION DB
+// var promise = mongoose.connect('mongodb://pablo:12345@ds123146.mlab.com:23146/yelpcamp_pavel', {
+//     useMongoClient: true,
+// });
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
